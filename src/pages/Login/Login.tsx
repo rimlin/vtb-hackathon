@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
 import { Typography, Button } from '@mui/material';
+import { useAuth } from 'oidc-react';
 
 import { login } from 'services/api';
 import { useState } from 'react';
@@ -26,6 +27,7 @@ export const LoginPage = () => {
   const [error, setError] = useState('');
   const history = useHistory();
   const { setValue } = useContext(UserSetContext);
+  const auth = useAuth();
 
   const formikbag = useFormik<FormData>({
     initialValues,

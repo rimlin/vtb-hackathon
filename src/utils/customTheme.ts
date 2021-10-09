@@ -31,6 +31,7 @@ export const customTheme = createTheme({
       styleOverrides: {
         root: {
           textDecoration: 'none',
+          borderRadius: 8,
         },
         sizeLarge: {
           fontSize: 16,
@@ -52,6 +53,11 @@ export const customTheme = createTheme({
       },
     },
     MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
       defaultProps: {
         InputLabelProps: {
           required: false,

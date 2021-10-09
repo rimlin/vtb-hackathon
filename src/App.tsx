@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { StyledEngineProvider } from '@mui/material/styles';
+import { AuthProvider } from 'oidc-react';
 
 import './assets/fonts/stylesheet.css';
 import './App.css';
@@ -15,6 +16,26 @@ import { HomePage } from 'pages/Home';
 import { customTheme } from 'utils/customTheme';
 import { AuthLayout } from 'layouts/Auth';
 import { DashboardLayout } from 'layouts/Dashboard';
+
+const env = {
+  AUTH_PROVIDER_URL: 'http://192.168.1.167:8080/auth/realms/master',
+  AUTH_CLIENT_ID: 'account',
+};
+
+const oidcConfig = {
+  onSignIn: async (user: any) => {
+    alert('You just signed in, congratz! Check out the console!');
+    console.log(user);
+    window.location.hash = '';
+  },
+  clientId: env.AUTH_CLIENT_ID,
+  authority: env.AUTH_PROVIDER_URL,
+  // redirectUri: `http://192.168.1.167:3000/sign-in`,
+  responseType: 'id_token token',
+  scope: `openid profile email`,
+  automaticSilentRenew: false,
+  loadUserInfo: false,
+};
 
 function App() {
   const [user, setUser] = useState<User>({
@@ -65,11 +86,13 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={customTheme}>
-        <UserSetContext.Provider value={{ setValue: setUser }}>
-          <UserContext.Provider value={user}>
-            <StyledEngineProvider injectFirst>{content}</StyledEngineProvider>
-          </UserContext.Provider>
-        </UserSetContext.Provider>
+        <AuthProvider {...oidcConfig}>
+          <UserSetContext.Provider value={{ setValue: setUser }}>
+            <UserContext.Provider value={user}>
+              <StyledEngineProvider injectFirst>{content}</StyledEngineProvider>
+            </UserContext.Provider>
+          </UserSetContext.Provider>
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
