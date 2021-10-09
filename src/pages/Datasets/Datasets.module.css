@@ -1,0 +1,30 @@
+.root {
+  padding: 24px 32px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+}
+
+.create {
+  margin-left: 32px;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.search {
+  width: 360px;
+}
+
+.all {
+  margin-left: 24px;
+}
+
+.onlyMy {
+  margin-left: 12px;
+}

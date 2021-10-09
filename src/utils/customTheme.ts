@@ -21,7 +21,7 @@ export const customTheme = createTheme({
       fontWeight: 500,
     },
     h2: {
-      fontSize: 48,
+      fontSize: 32,
       fontWeight: 500,
     },
     fontFamily: 'VTB Group UI Web,Arial,Garuda,sans-serif',
@@ -38,14 +38,25 @@ export const customTheme = createTheme({
           fontWeight: 500,
           lineHeight: '24px',
           padding: '16px 32px',
-          textTransform: 'capitalize',
+          textTransform: 'initial',
         },
         sizeMedium: {
           fontSize: 16,
           fontWeight: 500,
           lineHeight: '24px',
           padding: '12px 20px',
-          textTransform: 'capitalize',
+          textTransform: 'initial',
+        },
+        sizeSmall: {
+          fontSize: 14,
+          fontWeight: 500,
+          lineHeight: '16px',
+          padding: '12px 20px',
+          textTransform: 'initial',
+        },
+        outlinedSecondary: {
+          color: '#333333',
+          borderColor: '#DBDEEB',
         },
       },
       defaultProps: {

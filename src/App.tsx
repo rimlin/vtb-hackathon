@@ -12,7 +12,7 @@ import { RegisterPage } from 'pages/Register';
 import { UserContext, UserSetContext } from 'utils/contexts/user.context';
 import { User } from 'types/User';
 import { getJson } from 'utils/helpers/localStorage';
-import { HomePage } from 'pages/Home';
+import { DatasetsPage } from 'pages/Datasets';
 import { customTheme } from 'utils/customTheme';
 import { AuthLayout } from 'layouts/Auth';
 import { DashboardLayout } from 'layouts/Dashboard';
@@ -68,17 +68,17 @@ function App() {
       <Switch>
         {user.isAuthenticated === false && (
           <AuthLayout>
-            <PublicRoute path="/" exact component={LoginPage} />
+            <PublicRoute path="/login" exact component={LoginPage} />
             <PublicRoute path="/register" exact component={RegisterPage} />
           </AuthLayout>
         )}
 
         {user.isAuthenticated === true && (
           <DashboardLayout>
-            <PrivateRoute path="/home" exact component={HomePage} />
+            <PrivateRoute path="/" exact component={DatasetsPage} />
           </DashboardLayout>
         )}
-        {user.isAuthenticated ? <Redirect to="/home" /> : <Redirect to="/" />}
+        {user.isAuthenticated ? <Redirect to="/" /> : <Redirect to="/login" />}
       </Switch>
     );
   }, [user.isLoaded, user.isAuthenticated]);

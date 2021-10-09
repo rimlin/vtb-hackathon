@@ -23,7 +23,7 @@ export const Sidenav = () => {
               startIcon={<DatabaseIcon />}
               component={NavLink}
               activeClassName={styles.activeItem}
-              to="/home"
+              to="/"
               variant="text"
               size="medium"
               fullWidth

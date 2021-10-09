@@ -27,7 +27,6 @@ export const LoginPage = () => {
   const [error, setError] = useState('');
   const history = useHistory();
   const { setValue } = useContext(UserSetContext);
-  const auth = useAuth();
 
   const formikbag = useFormik<FormData>({
     initialValues,
@@ -40,7 +39,7 @@ export const LoginPage = () => {
       setError('');
       setJson('token', { value: 'temp' });
       setValue({ isAuthenticated: true, isLoaded: true });
-      history.push('/home');
+      history.push('/');
 
       //   return login(values)
       //     .then(result => {

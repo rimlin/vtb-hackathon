@@ -9,24 +9,40 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
     marginTop: theme.spacing(3),
   },
-  '& .MuiInputBase-input': {
+  '&': {
     borderRadius: 4,
     position: 'relative',
     backgroundColor: '#fff',
     border: '1px solid #B1B5BB',
+    boxSizing: 'border-box',
     fontSize: 16,
     width: '100%',
-    padding: '16px',
+    padding: '8px 16px',
+    height: 56,
     transition: theme.transitions.create([
       'border-color',
       'background-color',
       'box-shadow',
     ]),
     // Use the system font instead of the default Roboto font.
-    '&:focus': {
+    '&:focus-within': {
       boxShadow: `${theme.palette.primary.main} 0 0 0 1px`,
       borderColor: theme.palette.primary.main,
     },
+  },
+  '&.MuiInputBase-sizeSmall': {
+    height: 40,
+  },
+  '& .MuiInputBase-input': {
+    backgroundColor: '#fff',
+    boxSizing: 'border-box',
+    fontSize: 16,
+    width: '100%',
+    padding: '0 10px 0 0',
+  },
+  '& .MuiInputBase-inputSizeSmall': {
+    fontSize: 14,
+    lineHeight: 16,
   },
 }));
 
