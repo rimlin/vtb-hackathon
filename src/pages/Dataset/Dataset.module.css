@@ -1,20 +1,38 @@
 .root {
-  padding: 24px 32px;
+  padding: 24px 0;
 }
 
 .head {
   display: flex;
   align-items: center;
-}
-
-.create {
-  margin-left: 32px;
+  padding: 0 32px;
 }
 
 .filters {
   display: flex;
   align-items: center;
   margin-top: 24px;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.12);
+  padding: 16px 32px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sources {
+  margin-left: 12px;
+}
+
+.filters .buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .search {
@@ -27,10 +45,6 @@
 
 .onlyMy {
   margin-left: 12px;
-}
-
-.content {
-  margin-top: 16px;
 }
 
 .ds {
@@ -86,4 +100,27 @@
 
 .ds + .ds {
   border-top: 1px solid #E0E7ED;
+}
+
+.table {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.entityType {
+  display: flex;
+  align-items: center;
+}
+
+.entityType svg {
+  margin-right: 8px;
+  color: rgba(115, 124, 137, 0.6);
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px);
 }

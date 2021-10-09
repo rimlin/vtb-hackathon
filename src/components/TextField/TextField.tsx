@@ -10,7 +10,8 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
     marginTop: theme.spacing(3),
   },
   '&': {
-    borderRadius: 4,
+    borderRadius: 8,
+    borderColor: '#DADCE4 !important',
     position: 'relative',
     backgroundColor: '#fff',
     border: '1px solid #B1B5BB',

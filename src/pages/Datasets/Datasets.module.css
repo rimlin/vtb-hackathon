@@ -41,7 +41,6 @@
 .ds:hover {
   background: #FFFFFF;
   box-shadow: 0px 4px 24px rgba(6, 31, 98, 0.1);
-  border-radius: 8px;
 }
 
 .ds:hover .dsName {

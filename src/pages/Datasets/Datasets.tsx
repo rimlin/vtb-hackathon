@@ -11,10 +11,10 @@ import { ReactComponent as DatabaseIcon } from 'assets/icons/databaseSmall.svg';
 
 import styles from './Datasets.module.css';
 
-interface Dataset {
+export interface Dataset {
   createDate: string;
-  dataAttributes: any;
-  id: string;
+  type: string;
+  urn: string;
   name: string;
 }
 
@@ -57,7 +57,7 @@ export const DatasetsPage = () => {
         )}
 
         {data?.map(item => (
-          <article className={styles.ds} key={item.id}>
+          <article className={styles.ds} key={item.urn}>
             <div className={styles.dsWrapper}>
               <Typography variant="body2" className={styles.dsName}>
                 <DatabaseIcon />
@@ -73,7 +73,7 @@ export const DatasetsPage = () => {
                 <ClockIcon /> {DateTime.fromISO(item.createDate).toFormat('dd.MM.yyyy')}
               </Typography>
             </div>
-            <Link className={styles.dsLink} to={`/dataset/${item.id}`}></Link>
+            <Link className={styles.dsLink} to={`/dataset/${item.urn}`}></Link>
           </article>
         ))}
       </div>

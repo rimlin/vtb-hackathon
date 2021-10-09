@@ -7,7 +7,7 @@ export const customTheme = createTheme({
     },
     secondary: {
       main: '#F2F4F8',
-    },
+    }
   },
   shape: {
     borderRadius: 4,

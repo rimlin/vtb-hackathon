@@ -29,6 +29,7 @@
   flex-direction: column;
   transition: box-shadow 200ms ease-in-out;
   cursor: pointer;
+  border-radius: 16px;
 }
 
 .card:hover {
