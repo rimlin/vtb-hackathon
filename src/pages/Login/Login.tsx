@@ -1,12 +1,15 @@
 import { useFormik } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
-import { Typography, Button, TextField } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 
 import { login } from 'services/api';
 import { useState } from 'react';
 import { getJson, setJson } from 'utils/helpers/localStorage';
 import { useContext } from 'react';
 import { UserSetContext } from 'utils/contexts/user.context';
+import { TextField } from 'components/TextField';
+
+import styles from './Login.module.css';
 
 interface FormData {
   login: string;
@@ -50,56 +53,63 @@ export const LoginPage = () => {
   const { values, setFieldValue, handleSubmit } = formikbag;
 
   return (
-    <div>
-      <div>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <Typography variant="h3" gutterBottom>
-              Войти
-            </Typography>
+    <div className={styles.root}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <Typography className={styles.title} variant="h2">
+          Авторизация
+        </Typography>
 
-            <TextField
-              label="Номер телефона"
-              required
-              size="medium"
-              value={values.login}
-              variant="outlined"
-              onChange={event => setFieldValue('login', event.target.value)}
-            />
-            <TextField
-              label="Пароль"
-              required
-              size="medium"
-              type="password"
-              value={values.password}
-              variant="outlined"
-              onChange={event => setFieldValue('password', event.target.value)}
-            />
+        <TextField
+          placeholder="E-mail"
+          required
+          size="medium"
+          value={values.login}
+          onChange={event => setFieldValue('login', event.target.value)}
+          fullWidth
+          className={styles.field}
+        />
+        <TextField
+          placeholder="Пароль"
+          required
+          size="medium"
+          type="password"
+          value={values.password}
+          onChange={event => setFieldValue('password', event.target.value)}
+          fullWidth
+          className={styles.field}
+        />
 
-            {error && (
-              <Typography variant="body2" color="error" gutterBottom>
-                {error}
-              </Typography>
-            )}
+        {error && (
+          <Typography variant="body2" color="error" gutterBottom>
+            {error}
+          </Typography>
+        )}
 
-            <div>
-              <Button type="submit" disabled={loading} size="medium" variant="contained">
-                Войти
-              </Button>
-            </div>
-          </form>
-          <div>
-            <Typography variant="h3" color="secondary" gutterBottom>
-              Еще не зарегистрированы?
-            </Typography>
-            <Link to="/register">
-              <Button size="medium" variant="contained">
-                Регистрация
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+        <Button
+          className={styles.action}
+          fullWidth
+          type="submit"
+          disabled={loading}
+          size="large"
+          variant="contained"
+        >
+          Войти
+        </Button>
+
+        <Typography variant="body1" className={styles.or}>
+          или
+        </Typography>
+
+        <Button
+          component={Link}
+          to="/register"
+          size="large"
+          color="secondary"
+          variant="contained"
+        >
+          Регистрация
+        </Button>
+      </form>
     </div>
   );
 };

@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'VTB Group UI Web';
+    src: url('./VTBGroupUIWeb-Bold.woff2') format('woff2'),
+        url('./VTBGroupUIWeb-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'VTB Group UI Web';
+    src: url('./VTBGroupUIWeb-Medium.woff2') format('woff2'),
+        url('./VTBGroupUIWeb-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'VTB Group UI Web';
+    src: url('./VTBGroupUIWeb-Light.woff2') format('woff2'),
+        url('./VTBGroupUIWeb-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'VTB Group UI Web';
+    src: url('./VTBGroupUIWeb-Book.woff2') format('woff2'),
+        url('./VTBGroupUIWeb-Book.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+

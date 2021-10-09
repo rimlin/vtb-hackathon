@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
+import { StyledEngineProvider } from '@mui/material/styles';
 
+import './assets/fonts/stylesheet.css';
 import './App.css';
 import { Header } from 'components/Header';
 import { PrivateRoute, PublicRoute } from 'utils/routes';
@@ -13,6 +15,7 @@ import { Footer } from 'components/Footer';
 import { getJson } from 'utils/helpers/localStorage';
 import { HomePage } from 'pages/Home';
 import { customTheme } from 'utils/customTheme';
+import { AuthLayout } from 'layouts/Auth';
 
 function App() {
   const [user, setUser] = useState<User>({
@@ -44,12 +47,21 @@ function App() {
     return (
       <Switch>
         {user.isAuthenticated === false && (
-          <>
+          <AuthLayout>
             <PublicRoute path="/" exact component={LoginPage} />
             <PublicRoute path="/register" exact component={RegisterPage} />
+          </AuthLayout>
+        )}
+
+        {user.isAuthenticated === true && (
+          <>
+            <Header />
+            <main className="main">
+              <PrivateRoute path="/channels" exact component={HomePage} />
+            </main>
+            <Footer />
           </>
         )}
-        <PrivateRoute path="/channels" exact component={HomePage} />
         {user.isAuthenticated ? <Redirect to="/channels" /> : <Redirect to="/" />}
       </Switch>
     );
@@ -60,9 +72,7 @@ function App() {
       <ThemeProvider theme={customTheme}>
         <UserSetContext.Provider value={{ setValue: setUser }}>
           <UserContext.Provider value={user}>
-            <Header />
-            <main className="main">{content}</main>
-            <Footer />
+            <StyledEngineProvider injectFirst>{content}</StyledEngineProvider>
           </UserContext.Provider>
         </UserSetContext.Provider>
       </ThemeProvider>
