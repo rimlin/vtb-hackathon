@@ -3,6 +3,7 @@ import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { AuthProvider } from 'oidc-react';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
 import './assets/fonts/stylesheet.css';
 import './App.css';
@@ -16,6 +17,7 @@ import { DatasetsPage } from 'pages/Datasets';
 import { customTheme } from 'utils/customTheme';
 import { AuthLayout } from 'layouts/Auth';
 import { DashboardLayout } from 'layouts/Dashboard';
+import { DatasetPage } from 'pages/Dataset';
 
 const env = {
   AUTH_PROVIDER_URL: 'http://192.168.1.167:8080/auth/realms/master',
@@ -36,6 +38,8 @@ const oidcConfig = {
   automaticSilentRenew: false,
   loadUserInfo: false,
 };
+
+const queryClient = new QueryClient();
 
 function App() {
   const [user, setUser] = useState<User>({
@@ -76,6 +80,7 @@ function App() {
         {user.isAuthenticated === true && (
           <DashboardLayout>
             <PrivateRoute path="/" exact component={DatasetsPage} />
+            <PrivateRoute path="/dataset/:id" exact component={DatasetPage} />
           </DashboardLayout>
         )}
         {user.isAuthenticated ? <Redirect to="/" /> : <Redirect to="/login" />}
@@ -89,7 +94,9 @@ function App() {
         <AuthProvider {...oidcConfig}>
           <UserSetContext.Provider value={{ setValue: setUser }}>
             <UserContext.Provider value={user}>
-              <StyledEngineProvider injectFirst>{content}</StyledEngineProvider>
+              <QueryClientProvider client={queryClient}>
+                <StyledEngineProvider injectFirst>{content}</StyledEngineProvider>
+              </QueryClientProvider>
             </UserContext.Provider>
           </UserSetContext.Provider>
         </AuthProvider>

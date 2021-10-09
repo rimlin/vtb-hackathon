@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://partnerconnection-epc.dev.akbars.ru',
+      target: 'http://192.168.1.137:5000',
       changeOrigin: true,
       pathRewrite: {
         '^/api/': '/',

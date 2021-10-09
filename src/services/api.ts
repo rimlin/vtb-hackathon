@@ -13,3 +13,6 @@ export const registrationValidate = (params: {
 
 export const login = (params: { login: string; password: string }) =>
   apiPost<any>('/registration/validate', params);
+
+export const getDatasets = () => apiGet<any>('/dataset');
+export const getDataset = (id: string) => apiGet<any>(`/dataset/${id}`);
