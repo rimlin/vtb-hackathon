@@ -36,17 +36,21 @@ export const LoginPage = () => {
     onSubmit: values => {
       setLoading(true);
       setError('');
-      return login(values)
-        .then(result => {
-          setJson('clientId', { value: result.partnerId });
-          setJson('token', { value: result.token });
-          setValue({ isAuthenticated: true, isLoaded: true });
-          history.push('/channels');
-        })
-        .catch(() => {
-          setError('Неправильный номер телефона или пароль');
-        })
-        .finally(() => setLoading(false));
+      setJson('token', { value: 'temp' });
+      setValue({ isAuthenticated: true, isLoaded: true });
+      history.push('/home');
+
+      //   return login(values)
+      //     .then(result => {
+      //       setJson('clientId', { value: result.partnerId });
+      //       setJson('token', { value: result.token });
+      //       setValue({ isAuthenticated: true, isLoaded: true });
+      //       history.push('/channels');
+      //     })
+      //     .catch(() => {
+      //       setError('Неправильный номер телефона или пароль');
+      //     })
+      //     .finally(() => setLoading(false));
     },
   });
 

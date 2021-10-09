@@ -1,0 +1,11 @@
+.root {
+  flex: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+}
+
+.sidenav {
+  display: flex;
+  border-right: 1px solid #E0E7ED;
+}

@@ -5,17 +5,16 @@ import { StyledEngineProvider } from '@mui/material/styles';
 
 import './assets/fonts/stylesheet.css';
 import './App.css';
-import { Header } from 'components/Header';
 import { PrivateRoute, PublicRoute } from 'utils/routes';
 import { LoginPage } from 'pages/Login';
 import { RegisterPage } from 'pages/Register';
 import { UserContext, UserSetContext } from 'utils/contexts/user.context';
 import { User } from 'types/User';
-import { Footer } from 'components/Footer';
 import { getJson } from 'utils/helpers/localStorage';
 import { HomePage } from 'pages/Home';
 import { customTheme } from 'utils/customTheme';
 import { AuthLayout } from 'layouts/Auth';
+import { DashboardLayout } from 'layouts/Dashboard';
 
 function App() {
   const [user, setUser] = useState<User>({
@@ -54,15 +53,11 @@ function App() {
         )}
 
         {user.isAuthenticated === true && (
-          <>
-            <Header />
-            <main className="main">
-              <PrivateRoute path="/channels" exact component={HomePage} />
-            </main>
-            <Footer />
-          </>
+          <DashboardLayout>
+            <PrivateRoute path="/home" exact component={HomePage} />
+          </DashboardLayout>
         )}
-        {user.isAuthenticated ? <Redirect to="/channels" /> : <Redirect to="/" />}
+        {user.isAuthenticated ? <Redirect to="/home" /> : <Redirect to="/" />}
       </Switch>
     );
   }, [user.isLoaded, user.isAuthenticated]);

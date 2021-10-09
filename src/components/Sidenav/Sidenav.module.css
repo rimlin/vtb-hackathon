@@ -1,0 +1,54 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 32px 16px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.nav {
+  margin-top: 24px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list a {
+  text-align: left;
+  justify-content: flex-start;
+  font-weight: 400;
+  color: #333;
+}
+
+.list li + li {
+  margin-top: 4px;
+}
+
+.list a.activeItem {
+  background: #F0F4FF;
+  color: #0C6DFF;
+}
+
+.user {
+  display: flex;
+  margin-top: auto;
+  background: #F5F7F8;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.user img {
+  width: 48px;
+  height: 48px;
+}
+
+.userInfo {
+  margin-left: 12px;
+}
