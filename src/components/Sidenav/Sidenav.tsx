@@ -5,6 +5,7 @@ import { ReactComponent as LogoIcon } from 'assets/icons/logo_dark.svg';
 import { ReactComponent as DatabaseIcon } from 'assets/icons/database.svg';
 import { ReactComponent as StarIcon } from 'assets/icons/star.svg';
 import { ReactComponent as ZapIcon } from 'assets/icons/zap.svg';
+import { ReactComponent as DocIcon } from 'assets/icons/document.svg';
 import ava from './ava.png';
 
 import styles from './Sidenav.module.css';
@@ -23,6 +24,7 @@ export const Sidenav = () => {
               startIcon={<DatabaseIcon />}
               component={NavLink}
               activeClassName={styles.activeItem}
+              exact
               to="/"
               variant="text"
               size="medium"
@@ -33,15 +35,15 @@ export const Sidenav = () => {
           </li>
           <li>
             <Button
-              startIcon={<StarIcon />}
+              startIcon={<DocIcon />}
               component={NavLink}
               activeClassName={styles.activeItem}
-              to="/favorites"
+              to="/queries"
               variant="text"
               size="medium"
               fullWidth
             >
-              Избранное
+              Запросы
             </Button>
           </li>
           <li>
@@ -55,6 +57,20 @@ export const Sidenav = () => {
               fullWidth
             >
               Подключения
+            </Button>
+          </li>
+          <li>
+            <Button
+              disabled
+              startIcon={<StarIcon />}
+              component={NavLink}
+              activeClassName={styles.activeItem}
+              to="/favorites"
+              variant="text"
+              size="medium"
+              fullWidth
+            >
+              Избранное
             </Button>
           </li>
         </ul>

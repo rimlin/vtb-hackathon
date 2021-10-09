@@ -25,7 +25,7 @@ export const DatasetsPage = () => {
     <div className={styles.root}>
       <div className={styles.head}>
         <Typography variant="h2">Датасеты</Typography>
-        <Button className={styles.create} variant="contained" size="small">
+        <Button disabled className={styles.create} variant="contained" size="small">
           Создать датасет
         </Button>
       </div>

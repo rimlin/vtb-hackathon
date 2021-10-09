@@ -1,0 +1,48 @@
+.root {
+  padding: 24px 32px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+}
+
+.filters {
+  margin-top: 24px;
+}
+
+.search {
+  width: 360px;
+}
+
+.content {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 225px);
+  grid-auto-rows: 250px;
+  grid-gap: 24px;
+}
+
+.card {
+  padding: 36px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 200ms ease-in-out;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0px 13px 40px rgba(15, 24, 72, 0.1);
+}
+
+.card img {
+  width: 100%;
+}
+
+.cardLabel {
+  padding-top: 20px;
+  margin-top: auto;
+  text-align: center;
+  font-size: 16px;
+}
+

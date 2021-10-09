@@ -18,6 +18,9 @@ import { customTheme } from 'utils/customTheme';
 import { AuthLayout } from 'layouts/Auth';
 import { DashboardLayout } from 'layouts/Dashboard';
 import { DatasetPage } from 'pages/Dataset';
+import { ConnectionsPage } from 'pages/Connections';
+import { QueriesPage } from 'pages/Queries';
+import { QueryCreationPage } from 'pages/QueryCreation';
 
 const env = {
   AUTH_PROVIDER_URL: 'http://192.168.1.167:8080/auth/realms/master',
@@ -71,19 +74,27 @@ function App() {
     return (
       <Switch>
         {user.isAuthenticated === false && (
-          <AuthLayout>
-            <PublicRoute path="/login" exact component={LoginPage} />
-            <PublicRoute path="/register" exact component={RegisterPage} />
-          </AuthLayout>
+          <>
+            <AuthLayout>
+              <PublicRoute path="/login" exact component={LoginPage} />
+              <PublicRoute path="/register" exact component={RegisterPage} />
+            </AuthLayout>
+            <Redirect to="/login" />
+          </>
         )}
 
         {user.isAuthenticated === true && (
-          <DashboardLayout>
-            <PrivateRoute path="/" exact component={DatasetsPage} />
-            <PrivateRoute path="/dataset/:id" exact component={DatasetPage} />
-          </DashboardLayout>
+          <>
+            <DashboardLayout>
+              <PrivateRoute path="/" exact component={DatasetsPage} />
+              <PrivateRoute path="/dataset/:id" exact component={DatasetPage} />
+              <PrivateRoute path="/connections" exact component={ConnectionsPage} />
+              <PrivateRoute path="/queries" exact component={QueriesPage} />
+              <PrivateRoute path="/queries/create" exact component={QueryCreationPage} />
+            </DashboardLayout>
+            <Redirect to="/" />
+          </>
         )}
-        {user.isAuthenticated ? <Redirect to="/" /> : <Redirect to="/login" />}
       </Switch>
     );
   }, [user.isLoaded, user.isAuthenticated]);
