@@ -204,10 +204,10 @@ export const QueryCreationPage = () => {
                     onClick={() => setCurrentDS(item)}>
                     <DatabaseIcon width={16} height={16} color="#0C6DFF" />
                     <Typography className={styles.textEllipsis} variant="body2" style={{ marginLeft: 8, flexShrink: 5 }}>{item.name}</Typography>
-                    <BucketIcon className={styles.datasetRemove} onClick={(event) => {
+                    {/* <BucketIcon className={styles.datasetRemove} onClick={(event) => {
                       event.stopPropagation()
                       onRemoveDataset(item.urn)
-                    }} />
+                    }} /> */}
                   </div>
                 ))}
 
