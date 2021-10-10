@@ -1,0 +1,70 @@
+{
+  "datasets": [
+      {
+          "id": "34d2d0a3-2963-46a4-9586-ad22232f13e3",
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:municipalities,School,PROD)",
+          "name": "us_border_volumes"
+      },
+      {
+          "id": "62516347-f6c9-4995-b41e-8a06030c56f5",
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:municipalities,Hospital,PROD)",
+          "name": "city_congestion"
+      }
+  ],
+  "select": [
+      {
+          "34d2d0a3-2963-46a4-9586-ad22232f13e3": [
+              "year"
+          ]
+      }
+  ],
+  "operation": [
+      {
+          "isSelected": true,
+          "avg": [
+              {
+                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "costs"
+              },
+              {
+                  "62516347-f6c9-4995-b41e-8a06030c56f5": "costs"
+              }
+          ]
+      },
+      {
+          "isSelected": false,
+          "inner_join": [
+              {
+                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "year"
+              },
+              {
+                  "62516347-f6c9-4995-b41e-8a06030c56f5": "year"
+              }
+          ]
+      },
+      {
+          "isDescending": false,
+          "isSelected": false,
+          "order_by": [
+              {
+                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "year"
+              }
+          ]
+      },
+      {
+          "isSelected": false,
+          "group_by": [
+              {
+                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "year"
+              }
+          ]
+      }
+  ],
+  "where": [
+      {
+          "dataset": "34d2d0a3-2963-46a4-9586-ad22232f13e3",
+          "field": "year",
+          "operator": "gt",
+          "value": 2017
+      }
+  ]
+}

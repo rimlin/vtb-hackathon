@@ -167,3 +167,14 @@
 .arrow {
   cursor: pointer;
 }
+
+.formJson {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.formedJson {
+  padding: 16px;
+}

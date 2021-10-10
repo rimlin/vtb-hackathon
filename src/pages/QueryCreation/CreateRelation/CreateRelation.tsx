@@ -8,16 +8,17 @@ import { BootstrapDialogTitle, CustomModal } from 'components/CustomModal';
 import { ReactComponent as DatabaseIcon } from 'assets/icons/databaseSmall.svg';
 import { ReactComponent as BucketIcon } from 'assets/icons/parasha.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
+import { Dataset } from '../../Datasets/Datasets'
 
 import styles from './CreateRelation.module.css';
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  datasetNames: string[];
+  datasets: Dataset[];
 }
 
-export const CreateRelation: React.FC<Props> = ({ open, onClose, datasetNames }) => {
+export const CreateRelation: React.FC<Props> = ({ open, onClose, datasets }) => {
   return (
     <CustomModal onClose={onClose} open={open} className={styles.modal}>
       <BootstrapDialogTitle onClose={onClose}>Добавление связей</BootstrapDialogTitle>
@@ -26,7 +27,7 @@ export const CreateRelation: React.FC<Props> = ({ open, onClose, datasetNames })
           <Typography variant="body2" style={{ fontWeight: 700, marginBottom: 12, fontSize: '1.125rem' }}>
             Датасеты
           </Typography>
-          {datasetNames.map(name => (
+          {datasets.map(ds => (
             <div className={styles.dataset}>
               <div className={styles.datasetName}>
                 <DatabaseIcon width={16} height={16} color="#0C6DFF" />
@@ -35,7 +36,7 @@ export const CreateRelation: React.FC<Props> = ({ open, onClose, datasetNames })
                   variant="body2"
                   style={{ marginLeft: 8, flexShrink: 5 }}
                 >
-                  {name}
+                  {ds.name}
                 </Typography>
               </div>
               <BucketIcon width={16} height={16} style={{ cursor: 'pointer' }} />
@@ -61,20 +62,18 @@ export const CreateRelation: React.FC<Props> = ({ open, onClose, datasetNames })
           >
             Добавить связь
           </Button>
-          <div className={styles.datasetRelashionshipsList}>
-            <div className={styles.datasetRelashionshipsCard}>
-              <span>dataset_1 [product_id] = dataset_2 [product_id]</span>
-              <BucketIcon width={16} height={16} style={{ cursor: 'pointer' }} />
+          {datasets.length > 1 && (
+            <div className={styles.datasetRelashionshipsList}>
+              <div className={styles.datasetRelashionshipsCard}>
+                <span><span style={{ fontWeight: 'bold' }}>{datasets[0].name}</span> [owner_id] = <span style={{ fontWeight: 'bold' }}>{datasets[1].name}</span> [owner_id]</span>
+                <BucketIcon width={16} height={16} style={{ cursor: 'pointer' }} />
+              </div>
+              <div className={styles.datasetRelashionshipsCard}>
+                <span><span style={{ fontWeight: 'bold' }}>{datasets[0].name}</span> [tags] = <span style={{ fontWeight: 'bold' }}>{datasets[1].name}</span> [tags]</span>
+                <BucketIcon width={16} height={16} style={{ cursor: 'pointer' }} />
+              </div>
             </div>
-            <div className={styles.datasetRelashionshipsCard}>
-              <span>dataset_1 [product_id] = dataset_2 [product_id]</span>
-              <BucketIcon width={16} height={16} style={{ cursor: 'pointer' }} />
-            </div>
-            <div className={styles.datasetRelashionshipsCard}>
-              <span>dataset_1 [product_id] = dataset_2 [product_id]</span>
-              <BucketIcon width={16} height={16} style={{ cursor: 'pointer' }} />
-            </div>
-          </div>
+          )}
         </section>
       </DialogContent>
       <DialogActions style={{ padding: 24 }}>

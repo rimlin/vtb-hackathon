@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button, CircularProgress, Typography, Divider } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -32,9 +32,12 @@ import { ReactComponent as FilterIcon } from 'assets/icons/filter.svg';
 import { Dataset } from '../Datasets/Datasets'
 import { DatasetField } from '../Dataset/Dataset'
 import { CreateRelation } from './CreateRelation'
+import { SearchDatasets } from './SearchDatasets'
+import { CreateField } from './CreateField'
+import { CreateFilter } from './CreateFilter'
 
 import styles from './QueryCreation.module.css';
-import { useEffect } from 'react';
+import jsonQuery from './jsonQuery.json';
 
 const getTypeComponent = (type: string): React.ReactNode => {
   switch (type) {
@@ -56,7 +59,7 @@ export const QueryCreationPage = () => {
 
   const [visibleCreateRelation, setVisibleCreateRelation] = useState(false)
   const [openDatasets, setOpenDatasets] = useState(true)
-  const [selectedDS, setSelectedDS] = useState<string[]>(['urn:li:dataset:(urn:li:dataPlatform:bigquery,bigquery-public-data.covid19_geotab_mobility_impact.airport_traffic,PROD)', 'urn:li:dataset:(urn:li:dataPlatform:bigquery,bigquery-public-data.covid19_geotab_mobility_impact.city_congestion,PROD)'])
+  const [selectedDS, setSelectedDS] = useState<string[]>([])
   const [currentDS, setCurrentDS] = useState<Dataset | null>(null)
   const [searchDS, setSearchDS] = useState('')
   const [selectedFields, setSelectedFields] = useState<SelectedField[]>([])
@@ -108,9 +111,21 @@ export const QueryCreationPage = () => {
     })
   }
 
+  const onAddDataset = (dataset: Dataset) => {
+    setSelectedDS(prev => {
+      const copy = prev.slice(0)
+      copy.push(dataset.urn);
+
+      return copy;
+    })
+  }
+
   const onSettings = (index: number) => {
 
   }
+
+  const addDatasetRef = useRef<any>(null)
+  const [visibleSearchDatasets, setVisibleSearchDatasets] = useState(false)
 
   useEffect(() => {
     if (datasets && datasets.length > 0) {
@@ -120,7 +135,16 @@ export const QueryCreationPage = () => {
     }
   }, [currentDS, datasets, selectedDS])
 
-  console.log(selectedFields)
+  const [visibleCreateField, setVisibleCreateField] = useState(false)
+
+  const createFilterRef = useRef<any>(null)
+  const [visibleCreateFilter, setVisibleCreateFilter] = useState(false)
+
+  const [formedJson, setFormedJson] = useState(false)
+
+  useEffect(() => {
+    setFormedJson(false)
+  }, [selectedDS?.length, selectedFields.length])
 
   return (
     <>
@@ -180,18 +204,30 @@ export const QueryCreationPage = () => {
                   </div>
                 ))}
 
-                <div className={classNames(styles.datasetsItem, styles.datasetsCreate)}
-                  onClick={() => { }}>
+                <div ref={addDatasetRef} className={classNames(styles.datasetsItem, styles.datasetsCreate)}
+                  onClick={() => setVisibleSearchDatasets(true)}>
                   <PlusIcon color="#333" />
                   <Typography className={styles.textEllipsis} variant="body2" style={{ marginLeft: 8 }}>Добавить датасет</Typography>
                 </div>
               </div>
             }
 
+            {visibleSearchDatasets && (
+              <SearchDatasets
+                datasets={datasets?.filter(item => !selectedDS.includes(item.urn)) || []}
+                open={visibleSearchDatasets}
+                anchorEl={addDatasetRef}
+                onClose={() => setVisibleSearchDatasets(false)}
+                onSelect={res => {
+                  onAddDataset(res);
+                  setVisibleSearchDatasets(false)
+                }} />
+            )}
+
             <div className={styles.fieldsHead}>
               <FormatListBulletedIcon fontSize="small" htmlColor="rgba(115, 124, 137, 0.8)" />
               <Typography variant="body2" style={{ marginLeft: 8, fontWeight: 500 }}>Список полей из датасета</Typography>
-              <PlusIcon title="Добавить поле" style={{ marginLeft: 'auto', cursor: 'pointer' }} color="#333" />
+              <PlusIcon onClick={() => setVisibleCreateField(true)} title="Добавить поле" style={{ marginLeft: 'auto', cursor: 'pointer' }} color="#333" />
             </div>
             <div style={{ padding: '10px 16px 16px' }}>
               <TextField
@@ -253,10 +289,10 @@ export const QueryCreationPage = () => {
                 <Typography variant="body1" color="gray" style={{ margin: '13px 16px', textAlign: 'center', fontSize: 14 }}>Выберите поля</Typography>
               )}
               <Divider light />
-              <div className={styles.selectedHead}>
+              <div ref={createFilterRef} className={styles.selectedHead}>
                 <FilterIcon color="rgba(115, 124, 137, 0.8)" />
                 <Typography variant="body2" style={{ marginLeft: 8, fontWeight: 500 }}>Фильтры</Typography>
-                <PlusIcon title="Добавить фильтр" style={{ marginLeft: 'auto', cursor: 'pointer' }} color="#333" />
+                <PlusIcon onClick={() => setVisibleCreateFilter(true)} title="Добавить фильтр" style={{ marginLeft: 'auto', cursor: 'pointer' }} color="#333" />
               </div>
               <Divider light />
             </section>
@@ -269,17 +305,29 @@ export const QueryCreationPage = () => {
                 <Typography variant="body2" style={{ marginLeft: 8, fontWeight: 500 }}>Запрос</Typography>
               </div>
 
-              ...
-
+              {formedJson ? (
+                <pre className={styles.formedJson} dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(jsonQuery, null, 2),
+                }} />
+              ) : (
+                <div className={styles.formJson}>
+                  <Button onClick={() => setFormedJson(true)} variant="contained" color="primary" startIcon={<PlusIcon />}>Сформировать запрос</Button>
+                </div>
+              )}
             </section>
           )}
         </div>
       </div>
 
       <CreateRelation
-        datasetNames={datasets?.map(d => d.name) || []}
+        datasets={datasets?.filter(item => selectedDS.includes(item.urn)) || []}
         open={visibleCreateRelation}
         onClose={() => setVisibleCreateRelation(false)} />
+
+      <CreateField open={visibleCreateField} onClose={() => setVisibleCreateField(false)} />
+      {visibleCreateFilter && (
+        <CreateFilter anchorEl={createFilterRef} open={visibleCreateFilter} onClose={() => setVisibleCreateFilter(false)} />
+      )}
     </>
   );
 };

@@ -16,6 +16,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
   },
+  '& .MuiPaper-root': {
+    borderRadius: 16
+  }
 }));
 
 export interface DialogTitleProps {
