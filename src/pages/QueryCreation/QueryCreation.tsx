@@ -38,6 +38,7 @@ import { CreateFilter } from './CreateFilter'
 
 import styles from './QueryCreation.module.css';
 import jsonQuery from './jsonQuery.json';
+import { CreateAgregate } from './CreateAgregate';
 
 const getTypeComponent = (type: string): React.ReactNode => {
   switch (type) {
@@ -121,7 +122,7 @@ export const QueryCreationPage = () => {
   }
 
   const onSettings = (index: number) => {
-
+    setVisibleCreateAgregate(true)
   }
 
   const addDatasetRef = useRef<any>(null)
@@ -136,9 +137,13 @@ export const QueryCreationPage = () => {
   }, [currentDS, datasets, selectedDS])
 
   const [visibleCreateField, setVisibleCreateField] = useState(false)
+  const [visibleCreateAgregate, setVisibleCreateAgregate] = useState(false)
 
   const createFilterRef = useRef<any>(null)
   const [visibleCreateFilter, setVisibleCreateFilter] = useState(false)
+
+  const selectGroupRef = useRef<any>(null)
+  const [visibleSelectGroup, setVisibleSelectGroup] = useState(false)
 
   const [formedJson, setFormedJson] = useState(false)
 
@@ -178,10 +183,12 @@ export const QueryCreationPage = () => {
               {currentDS && (
                 <>
                   <Typography className={styles.textEllipsis} variant="body2" style={{ marginLeft: 8, color: '#0C6DFF' }}>{currentDS?.name}</Typography>
-                  <LinkIcon style={{ marginLeft: 'auto', paddingLeft: 8 }} fontSize="small" htmlColor="#333333" onClick={(event) => {
-                    event.stopPropagation()
-                    setVisibleCreateRelation(true)
-                  }} />
+                  {selectedDS?.length > 1 && (
+                    <LinkIcon style={{ marginLeft: 'auto', paddingLeft: 8 }} fontSize="small" htmlColor="#333333" onClick={(event) => {
+                      event.stopPropagation()
+                      setVisibleCreateRelation(true)
+                    }} />
+                  )}
                 </>
               )}
               {!currentDS && (
@@ -265,10 +272,10 @@ export const QueryCreationPage = () => {
                 <CheckSquareIcon color="rgba(115, 124, 137, 0.8)" />
                 <Typography variant="body2" style={{ marginLeft: 8, fontWeight: 500 }}>Выбранные поля</Typography>
               </div>
-              <div className={styles.selectedHead}>
+              <div ref={selectGroupRef} className={styles.selectedHead}>
                 <CopyIcon color="rgba(115, 124, 137, 0.8)" />
                 <Typography variant="body2" style={{ marginLeft: 8, fontWeight: 500 }}>Группировка по полю</Typography>
-                <PlusIcon title="Выбрать поле для группировки" style={{ marginLeft: 'auto', cursor: 'pointer' }} color="#333" />
+                <PlusIcon onClick={() => setVisibleSelectGroup(true)} title="Выбрать поле для группировки" style={{ marginLeft: 'auto', cursor: 'pointer' }} color="#333" />
               </div>
               <Divider style={{ margin: '8px 16px'}} light />
 
@@ -325,8 +332,12 @@ export const QueryCreationPage = () => {
         onClose={() => setVisibleCreateRelation(false)} />
 
       <CreateField open={visibleCreateField} onClose={() => setVisibleCreateField(false)} />
+      <CreateAgregate open={visibleCreateAgregate} onClose={() => setVisibleCreateAgregate(false)} />
       {visibleCreateFilter && (
         <CreateFilter anchorEl={createFilterRef} open={visibleCreateFilter} onClose={() => setVisibleCreateFilter(false)} />
+      )}
+      {visibleSelectGroup && (
+        <CreateFilter anchorEl={selectGroupRef} open={visibleSelectGroup} onClose={() => setVisibleSelectGroup(false)} />
       )}
     </>
   );

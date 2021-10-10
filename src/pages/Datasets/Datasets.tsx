@@ -69,9 +69,6 @@ export const DatasetsPage = () => {
               <Typography variant="body2" className={styles.dsValue}>
                 alexanderkn
               </Typography>
-              <Typography variant="body2" className={styles.dsValue}>
-                <ClockIcon /> {DateTime.fromISO(item.createDate).toFormat('dd.MM.yyyy')}
-              </Typography>
             </div>
             <Link className={styles.dsLink} to={`/dataset/${item.urn}?name=${item.name}`}></Link>
           </article>
