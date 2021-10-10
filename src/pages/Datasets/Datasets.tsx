@@ -73,7 +73,7 @@ export const DatasetsPage = () => {
                 <ClockIcon /> {DateTime.fromISO(item.createDate).toFormat('dd.MM.yyyy')}
               </Typography>
             </div>
-            <Link className={styles.dsLink} to={`/dataset/${item.urn}`}></Link>
+            <Link className={styles.dsLink} to={`/dataset/${item.urn}?name=${item.name}`}></Link>
           </article>
         ))}
       </div>

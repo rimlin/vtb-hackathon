@@ -14,6 +14,7 @@ import {
 import { Search } from '@mui/icons-material';
 import { ReactNode } from 'react';
 import { useQuery } from 'react-query';
+import { useQuery as useQueryUtils }  from '../../utils/hooks/useQuery'
 import { DateTime } from 'luxon';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -49,6 +50,7 @@ const getTypeComponent = (type: string): ReactNode => {
 
 export const DatasetPage = () => {
   const { id } = useParams<{ id: string }>();
+  const { name } = useQueryUtils<{ name : string }>();
   const { isLoading, error, data } = useQuery<DatasetField[]>(['datasets', id], () =>
     getDataset(id),
   );
@@ -58,7 +60,7 @@ export const DatasetPage = () => {
       Датасеты
     </Link>,
     <Typography key="3" color="text.primary">
-      Название датасета
+      {name}
     </Typography>,
   ];
 
