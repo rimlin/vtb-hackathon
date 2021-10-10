@@ -2,69 +2,74 @@
   "datasets": [
       {
           "id": "34d2d0a3-2963-46a4-9586-ad22232f13e3",
-          "urn": "urn:li:dataset:(urn:li:dataPlatform:municipalities,School,PROD)",
-          "name": "us_border_volumes"
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:bigquery,bigquery-public-data.covid19_geotab_mobility_impact.airport_traffic,PROD)",
+          "name": "airport_traffic"
       },
       {
           "id": "62516347-f6c9-4995-b41e-8a06030c56f5",
-          "urn": "urn:li:dataset:(urn:li:dataPlatform:municipalities,Hospital,PROD)",
-          "name": "city_congestion"
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:bigquery,bigquery-public-data.covid19_geotab_mobility_impact.port_traffic,PROD)",
+          "name": "port_traffic"
       }
   ],
   "select": [
       {
           "34d2d0a3-2963-46a4-9586-ad22232f13e3": [
-              "year"
+              "aggregation_method",
+              "date",
+              "version",
+              "airport_name",
+              "percent_of_baseline",
+              "center_point_geom",
+              "city",
+              "state_region",
+              "country_iso_code_2",
+              "country_name",
+              "airport_geom"
+          ],
+          "62516347-f6c9-4995-b41e-8a06030c56f5": [
+              "country_iso_code_2",
+              "port_id",
+              "port",
+              "year_week",
+              "week_end",
+              "aggregation_method",
+              "percent_of_vehicle_volume_change",
+              "percent_of_trip_volume_change",
+              "percent_of_hdt_volume_change",
+              "percent_of_mdt_volume_change",
+              "percent_of_ldt_volume_change",
+              "percent_of_mpv_volume_change",
+              "percent_of_car_volume_change",
+              "percent_of_other_volume_change",
+              "percent_of_agg_truck_volume_change",
+              "percent_of_agg_nontruck_volume_change",
+              "wait_time_avg",
+              "wait_time_hdt",
+              "wait_time_mdt",
+              "wait_time_ldt",
+              "wait_time_mpv",
+              "wait_time_car",
+              "wait_time_other",
+              "wait_time_agg_truck",
+              "wait_time_agg_nontruck",
+              "city",
+              "port_latitude",
+              "port_longitude",
+              "version",
+              "port_geom"
           ]
       }
   ],
   "operation": [
       {
-          "isSelected": true,
-          "avg": [
-              {
-                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "costs"
-              },
-              {
-                  "62516347-f6c9-4995-b41e-8a06030c56f5": "costs"
-              }
-          ]
-      },
-      {
-          "isSelected": false,
           "inner_join": [
               {
-                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "year"
+                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "city"
               },
               {
-                  "62516347-f6c9-4995-b41e-8a06030c56f5": "year"
+                  "62516347-f6c9-4995-b41e-8a06030c56f5": "city"
               }
           ]
-      },
-      {
-          "isDescending": false,
-          "isSelected": false,
-          "order_by": [
-              {
-                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "year"
-              }
-          ]
-      },
-      {
-          "isSelected": false,
-          "group_by": [
-              {
-                  "34d2d0a3-2963-46a4-9586-ad22232f13e3": "year"
-              }
-          ]
-      }
-  ],
-  "where": [
-      {
-          "dataset": "34d2d0a3-2963-46a4-9586-ad22232f13e3",
-          "field": "year",
-          "operator": "gt",
-          "value": 2017
       }
   ]
 }
